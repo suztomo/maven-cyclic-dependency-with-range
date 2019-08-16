@@ -14,6 +14,8 @@ cd ../module-b-2
 mvn install
 cd ../module-c
 mvn install
+cd ../module-d
+mvn install
 ```
 
 Modify constraint in module-a
