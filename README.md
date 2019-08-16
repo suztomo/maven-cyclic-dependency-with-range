@@ -79,3 +79,7 @@ module-c:1.0.0
             ...
 ```
 
+
+# Environment
+
+The error was reproduced in Maven 3.6.1 and Java 8 in Linux on amd 64.
