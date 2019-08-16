@@ -2,6 +2,12 @@
 
 https://github.com/GoogleCloudPlatform/cloud-opensource-java/issues/842
 
+This project reproduces StackOverFlowError caused by Maven's ConflictResolver.
+
+# Steps to Reproduce the Issue
+
+Starting from the root of this project, run the following commands:
+
 ```
 rm -rf ~/.m2/repository/suztomo
 cd module-b-0
@@ -13,12 +19,60 @@ mvn install
 cd ../module-b-2
 mvn install
 cd ../module-c
-mvn install
+mvn install # this fails
 ```
 
-Modify constraint in module-a
+The last `mvn install` at module-c fails with following error:
 
+```
+[INFO] --------------------------< suztomo:module-c >--------------------------
+[INFO] Building module-c 1.0
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.406 s
+[INFO] Finished at: 2019-08-16T12:10:30-04:00
+[INFO] ------------------------------------------------------------------------
+...
+Exception in thread "main" java.lang.StackOverflowError
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:341)
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:345)
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:345)
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:345)
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:345)
+	at org.eclipse.aether.graph.DefaultDependencyNode.accept(DefaultDependencyNode.java:345)
+...(omitting many lines)...
+```
 
-In my attempt, module-b does not have module-a as children:
-https://screenshot.googleplex.com/MzeJC1AR1zf.png
+# Diagnosis
+
+Because of a version conflict on grpc-core (1.21.0 v.s. 1.16.1),
+`org.eclipse.aether.util.graph.transformer.NearestVersionSelector.newFailure` tries to throw
+`UnsolvableVersionConflictExceptoin`. However, before throwing the exception tries to visit nodes
+in the dependency graph by `PathRecordingDependencyVisitor` and the graph contains a cyclic path.
+
+```
+    private UnsolvableVersionConflictException newFailure( final ConflictContext context )
+    {
+        ...
+        PathRecordingDependencyVisitor visitor = new PathRecordingDependencyVisitor( filter );
+        context.getRoot().accept( visitor );
+        return new UnsolvableVersionConflictException( visitor.getPaths() );
+    }
+```
+
+The cyclic path consists of module-a and module-b as illustrated below:
+
+```
+module-c:1.0.0
++- module-b:2.0.0
+   +- module-a:1.0.0
+      +- module-b:0.0.1
+      +- module-b:1.0.0
+      |  +- module-a:1.0.0
+      |     +- module-b:0.0.1
+      |     +- module-b:1.0.0
+            ...
+```
 
