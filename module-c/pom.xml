@@ -17,11 +17,13 @@
 
   <dependencies>
     <dependency>
+      <!-- This has grpc-core version specified as [1.21.0] -->
       <groupId>io.grpc</groupId>
       <artifactId>grpc-netty-shaded</artifactId>
       <version>1.21.0</version>
     </dependency>
     <dependency>
+      <!-- This has grpc-core version specified as [1.16.1] -->
       <groupId>io.grpc</groupId>
       <artifactId>grpc-netty</artifactId>
       <version>1.16.1</version>

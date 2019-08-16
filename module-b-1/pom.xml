@@ -17,11 +17,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.grpc</groupId>
-      <artifactId>grpc-netty</artifactId>
-      <version>1.16.1</version>
-    </dependency>
-    <dependency>
       <groupId>suztomo</groupId>
       <artifactId>module-a</artifactId>
       <version>1.0.0</version>

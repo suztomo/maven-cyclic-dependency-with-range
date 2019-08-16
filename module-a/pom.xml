@@ -19,12 +19,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.grpc</groupId>
-      <artifactId>grpc-netty-shaded</artifactId>
-      <!--      <version>1.21.0</version>-->
-            <version>1.16.1</version>
-    </dependency>
-    <dependency>
       <groupId>suztomo</groupId>
       <artifactId>module-b</artifactId>
       <version>[0.0.1,3.0.0)</version>
