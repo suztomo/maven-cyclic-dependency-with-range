@@ -12,7 +12,7 @@ This project reproduces StackOverflowError caused by Maven's ConflictResolver.
 Starting from the root of this project, run the following commands:
 
 ```
-rm -rf ~/.m2/repository/suztomo
+rm -rf ~/.m2/repository/suztomo # cleanup previously installed modules with groupId:suztomo
 cd module-b-0
 mvn install
 cd ../module-a
