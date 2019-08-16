@@ -7,15 +7,20 @@
 
   <groupId>suztomo</groupId>
   <artifactId>module-b</artifactId>
-  <version>1.0.0</version>
+  <version>1.7.5</version>
 
-  <name>module-b version 1.0.0</name>
+  <name>module-b</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty</artifactId>
+      <version>1.16.1</version>
+    </dependency>
     <dependency>
       <groupId>suztomo</groupId>
       <artifactId>module-a</artifactId>

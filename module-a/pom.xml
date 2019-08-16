@@ -19,12 +19,19 @@
 
   <dependencies>
     <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty-shaded</artifactId>
+      <!--      <version>1.21.0</version>-->
+            <version>1.16.1</version>
+    </dependency>
+    <dependency>
       <groupId>suztomo</groupId>
       <artifactId>module-b</artifactId>
-      <version>[0.0.0,2.0.0)</version>
+      <version>[1.7.0,1.8.0)</version>
     </dependency>
   </dependencies>
 
+  <!--
   <build>
     <plugins>
       <plugin>
@@ -41,7 +48,6 @@
         <executions>
           <execution>
             <id>enforce-linkage-check</id>
-            <!-- Important! Should run after compile -->
             <phase>verify</phase>
             <goals>
               <goal>enforce</goal>
@@ -58,5 +64,5 @@
         </executions>
       </plugin>
     </plugins>
-  </build>
+  </build> -->
 </project>

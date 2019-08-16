@@ -6,10 +6,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>suztomo</groupId>
-  <artifactId>module-b</artifactId>
-  <version>1.7.6</version>
+  <artifactId>module-d</artifactId>
+  <version>1.0</version>
 
-  <name>module-b</name>
+  <name>module-d</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,13 +18,20 @@
   <dependencies>
     <dependency>
       <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty-shaded</artifactId>
+      <version>1.21.0</version>
+      <!--      <version>1.16.1</version>-->
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
       <artifactId>grpc-netty</artifactId>
       <version>1.16.1</version>
+      <!--      <version>1.16.1</version>-->
     </dependency>
     <dependency>
       <groupId>suztomo</groupId>
-      <artifactId>module-a</artifactId>
-      <version>1.0.0</version>
+      <artifactId>module-c</artifactId>
+      <version>1.0</version>
     </dependency>
-  </dependencies>
-</project>
+    </dependencies>
+  </project>
