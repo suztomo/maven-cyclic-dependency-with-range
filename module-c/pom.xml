@@ -28,6 +28,7 @@
       <artifactId>grpc-netty</artifactId>
       <version>1.16.1</version>
     </dependency>
+
     <dependency>
       <groupId>suztomo</groupId>
       <artifactId>module-b</artifactId>
