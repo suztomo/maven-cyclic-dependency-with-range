@@ -1,5 +1,8 @@
 # Project to reproduce StackOverflowError in Maven
 
+Maven throws StackOverflowError when version ranges are unsolvable and the dependency graph contains
+a cycle.
+
 https://github.com/GoogleCloudPlatform/cloud-opensource-java/issues/842
 
 This project reproduces StackOverflowError caused by Maven's ConflictResolver.
@@ -52,7 +55,7 @@ Because of a version conflict on grpc-core (1.21.0 v.s. 1.16.1),
 https://github.com/apache/maven-resolver/blob/maven-resolver-1.4.0/maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/NearestVersionSelector.java#L158
 ) tries to throw `UnsolvableVersionConflictExceptoin`. However, before throwing the exception
 `PathRecordingDependencyVisitor` visits nodes in the dependency graph and the graph contains a
-cyclic path. The visitor goes to infinite recursion in visiting the cyclic path, resulting in
+cycle. The visitor goes to infinite recursion in visiting the cyclic path, resulting in
 StackOverflowError.
 
 ```
